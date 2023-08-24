@@ -17,7 +17,6 @@ export class AuthService {
 
   private updateLocalStorage():void {
     localStorage.setItem('users', JSON.stringify(this.users));
-    console.log(this.users);
   }
 
   private updateCurrentUser(user: User): void {

@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Post } from 'src/app/models/post.model';
 import { PostsService } from 'src/app/services/posts.service';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-post',
