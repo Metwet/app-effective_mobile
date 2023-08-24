@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -9,22 +9,34 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  user: User = {
-    username: '',
-    email: '',
-    password: ''
+  loginForm!: FormGroup;
+  showUserExistsMessage: boolean = false;
+  wrongPasswordMessageVisible = false;
+
+  constructor(private authService: AuthService, private router: Router, private fb: FormBuilder) {}
+
+  ngOnInit() {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]],
+    });
   }
 
-  constructor(private authService: AuthService, private router: Router) {}
-
   login():void {
-    const isAuthenticated = this.authService.authenticate(this.user.email, this.user.password);
-
+    const email = this.loginForm.get('email')?.value;
+    const password = this.loginForm.get('password')?.value;
+  
+    const isAuthenticated = this.authService.authenticate(email, password);
     if (isAuthenticated) {
-      console.log('Успешная аутентификация');
       this.router.navigate(['/posts']);
     } else {
-      console.log('Неудачная аутентификация');
+      this.wrongPasswordMessageVisible = true;
     }
+  }
+
+  checkUserExists(): void {
+    const email = this.loginForm.get('email')?.value;
+    const userExists = this.authService.userExists(email);
+    this.showUserExistsMessage = userExists;
   }
 }

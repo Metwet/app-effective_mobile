@@ -47,4 +47,8 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem(this.currentUserKey);
   }
+
+  userExists(email: string): boolean {
+    return this.users.some(user => user.email === email);
+  }
 }

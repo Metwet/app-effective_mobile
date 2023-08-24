@@ -6,6 +6,23 @@
     margin-bottom: 30px;
 }
 
+.login__card {
+    max-width: 400px;
+    width: 100%;
+}
+
+.login__field {
+    width: 100%;
+}
+
+.showUserExistsMessage {
+    color: green;
+}
+
+.wrongPasswordMessageVisible {
+    color: rgb(209, 47, 47);
+}
+
 .btn {
     margin-bottom: 10px;
 }
