@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -14,13 +15,14 @@ export class LoginComponent {
     password: ''
   }
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   login():void {
     const isAuthenticated = this.authService.authenticate(this.user.email, this.user.password);
 
     if (isAuthenticated) {
       console.log('Успешная аутентификация');
+      this.router.navigate(['/posts']);
     } else {
       console.log('Неудачная аутентификация');
     }

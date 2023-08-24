@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -14,14 +15,10 @@ export class RegistrationComponent {
     password: ''
   }
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   register() {
     this.authService.register(this.user);
-    this.user = {
-      username: '',
-      email: '',
-      password: ''
-    }; 
+    this.router.navigate(['/posts']);
   }
 }

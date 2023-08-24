@@ -6,6 +6,7 @@ import { User } from '../models/user.model';
 })
 export class AuthService {
   private users: User[] = [];
+  private currentUserKey = 'current_user';
 
   constructor() {
     const storedUsers = localStorage.getItem('users');
@@ -19,13 +20,31 @@ export class AuthService {
     console.log(this.users);
   }
 
+  private updateCurrentUser(user: User): void {
+    localStorage.setItem(this.currentUserKey, JSON.stringify(user));
+  }
+
   register(user: User):void {
     this.users.push(user);
     this.updateLocalStorage();
+    this.updateCurrentUser(user);
+  }
+
+  getCurrentUser(): User | null {
+    const storedUser = localStorage.getItem(this.currentUserKey);
+    return storedUser ? JSON.parse(storedUser) : null;
   }
 
   authenticate(email: string, password: string): boolean {
     const user = this.users.find(u => u.email === email && u.password === password);
-    return !!user;
+    if (user) {
+      this.updateCurrentUser(user);
+      return true;
+    }
+    return false;
+  }
+
+  logout(): void {
+    localStorage.removeItem(this.currentUserKey);
   }
 }

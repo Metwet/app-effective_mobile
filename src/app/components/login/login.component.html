@@ -15,8 +15,11 @@
                     <input matInput type="password" placeholder="Пароль" [(ngModel)]="user.password" name="password" required>
                 </mat-form-field>
             </div>
-            <div>
+            <div class="btn">
                 <button mat-raised-button color="primary" type="submit">Войти</button>
+            </div>
+            <div class="btn">
+                <button mat-raised-button color="accent" routerLink="/registration">Регистрация</button>
             </div>
           </form>
         </mat-card-content>

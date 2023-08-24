@@ -1,0 +1,10 @@
+<div class="container posts__container">
+    <div class="post" *ngIf="posts.length > 0; else emptyList">
+        <app-post *ngFor="let post of posts" [post]="post" (click)="goToPost(post.id)"></app-post>
+    </div>
+    <ng-template #emptyList>
+        <div class="spiner">
+            <mat-spinner></mat-spinner>
+        </div>
+    </ng-template>
+</div>
